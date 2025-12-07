@@ -1,0 +1,189 @@
+/* Grundlegende Resets und Variablen */
+:root {
+  --desktop-nav-height: 60px;
+  --mobile-nav-width: 50vw;
+  --menu-bg-color: rgb(255, 0, 157);
+  --menu-font-color: rgb(255, 255, 255);
+  --font-color: #000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 20px;
+
+  nav {
+    background-color: var(--menu-bg-color); /* Violett */
+    position: sticky;
+    top: 0; /* Nav klebt am obersten Rand des Viewports */
+    height: var(--desktop-nav-height);
+    z-index: 100;
+    width: 100%;
+
+    @media (max-width: 599px) {
+      width: 0px;
+      position: absolute;
+      right: 0;
+    }
+
+    /* Diese HTML-Checkbox soll unsichtbar sein. Stattdessen wird Hamburger- oder Close Icon angezeigt */
+    #menu-toggle,
+    .click-outside-close {
+      display: none;
+    }
+
+    .nav-menu {
+      display: flex;
+
+      @media (min-width: 600px) {
+        height: var(--desktop-nav-height); /* Gleiche Höhe wie nav */
+        flex-direction: row; /* Menüeinträge nebeneinander anzeigen */
+        gap: 30px; /* Abstand zwischen den Menüeinträgen */
+        list-style: none;
+        margin: 0;
+        align-items: center; /* Vertikal zentrieren */
+      }
+
+      li a {
+        color: var(--menu-font-color);
+        text-decoration: none; /* Unterstreichung entfernen */
+        font-size: 1.1rem;
+        padding: 10px 0;
+        transition: color 0.5s;
+        &:hover {
+          color: #ffd700;
+        }
+      }
+    }
+
+    .close-icon {
+      display: none;
+    }
+
+    @media (max-width: 599px) {
+      /* Hamburger/Schließen Icon */
+      .menu-icon {
+        position: absolute; /* Positioniert relativ zur 'nav' */
+        top: 0;
+        right: 0;
+        height: var(--desktop-nav-height);
+        width: var(--desktop-nav-height);
+        cursor: pointer;
+        z-index: 150;
+        padding: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* Hamburger-Menu (3 Striche) bauen */
+        .hamburger {
+          display: block;
+          width: 100%;
+          height: 3px;
+          background-color: var(--font-color);
+          position: relative;
+
+          /* der 2. und der 3. Strich des Hamburger-Menu-Icons */
+          &::before,
+          &::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--font-color);
+            position: absolute;
+          }
+
+          &::before {
+            top: -8px;
+          }
+
+          &::after {
+            top: 8px;
+          }
+        }
+
+        /* Schließen-Icon (X) */
+        .close-icon {
+          display: none;
+          font-size: 2.5rem;
+          line-height: var(--desktop-nav-height);
+          color: var(--menu-font-color);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: opacity 1s;
+          background: none; /* Entfernt den Hintergrund */
+        }
+      }
+
+      /* Smartphone Portrait only: Navigationsmenü (als Overlay) */
+      .nav-menu {
+        display: none; /* Standardmäßig versteckt */
+        position: fixed; /* Überlagert den Content */
+        top: 0;
+        right: -100%;
+        left: auto;
+        width: var(--mobile-nav-width);
+        height: auto;
+        max-height: 100vh;
+        background-color: var(--menu-bg-color);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: var(--desktop-nav-height) 0 20px 0;
+        /* box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5); */
+        z-index: 120;
+        overflow-y: auto;
+
+        li {
+          width: 100%;
+          text-align: center;
+          padding: 10px 0;
+
+          a {
+            display: block;
+            padding: 10px 0;
+            font-size: 1.3rem;
+          }
+        }
+      }
+
+      /* Menü offen -> die Elemente hinter "~" werden nur dann gestylt, wenn die Bedingung vor "~" gegeben ist */
+      #menu-toggle:checked {
+        /* & steht für #menu-toggle:checked */
+        & ~ .nav-menu {
+          display: flex;
+          right: 0;
+        }
+
+        & ~ .menu-icon {
+          .hamburger {
+            display: none;
+          }
+
+          .close-icon {
+            display: block;
+          }
+        }
+
+        & ~ .click-outside-close {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 110;
+          background: rgba(0, 0, 0, 0.4);
+        }
+      }
+    } /* Ende Media Query */
+  }
+}

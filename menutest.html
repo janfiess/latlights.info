@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsives Navigationsmenü</title>
+    <link rel="stylesheet" href="css/menutest.css" />
+  </head>
+  <body>
+    <nav>
+      <!-- nur bei Smartphone-Layout (-> Toggle hinter Hamburger- / Schliess-Icon) -->
+      <input type="checkbox" id="menu-toggle" />
+
+      <!-- nur bei Smartphone-Layout (-> Gestaltung des Toggles: Hamburger oder Schliess-Icon) -->
+      <label for="menu-toggle" class="menu-icon">
+        <span class="hamburger"></span>
+        <span class="close-icon">×</span>
+      </label>
+
+      <!-- nur bei Smartphone-Layout (-> halbtransparenter Bereich ausserhalb des offenen Menüs zum Schliessen des Menüs) -->
+      <label for="menu-toggle" class="click-outside-close"></label>
+
+      <!-- Desktop und Smartphone -->
+      <ul class="nav-menu">
+        <li><a href="#home">Startseite</a></li>
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#services">Dienste</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Hauptinhalt der Seite</h1>
+      <p>
+        Dies ist der Hauptinhalt Ihrer Seite. Scrollen Sie nach unten, um das
+        Sticky Nav zu testen.
+      </p>
+      <div style="height: 150vh; padding-top: 50px">
+        <p>Weiterer Inhalt...</p>
+      </div>
+    </main>
+  </body>
+</html>
